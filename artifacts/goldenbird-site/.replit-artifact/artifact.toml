@@ -1,0 +1,28 @@
+kind = "web"
+previewPath = "/"
+title = "Goldenbird Marquee & Event Center"
+description = "A premium single-page venue website for Goldenbird Marquee and Event Center in Wuye, Abuja, with hall and grounds information, event services, customer reviews, inspection hours, and a client-side inspection request form."
+version = "1.0.0"
+id = "artifacts/goldenbird-site"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/" ]
+localPort = 26032
+
+[services.development]
+run = "pnpm --filter @workspace/goldenbird-site run dev"
+
+[services.production]
+build = [ "pnpm", "--filter", "@workspace/goldenbird-site", "run", "build" ]
+serve = "static"
+publicDir = "artifacts/goldenbird-site/dist/public"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/index.html"
+
+[services.env]
+PORT = "26032"
+BASE_PATH = "/"
